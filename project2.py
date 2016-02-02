@@ -1,0 +1,104 @@
+#Mahamadou Sylla 61549479 and Jonathan Abebe 38104225
+
+import connectfour
+
+import collections
+
+game = connectfour.new_game() #brand new game of connect four
+
+
+def new_board(Board):
+    '''
+    changes the format of the board from 6x7 to 7x6
+    '''
+    result = [[Board[j][i] for j in range(len(Board))] for i in range(len(Board[0]))]
+    new_board = []
+    for r in result:
+       new_board.append(r)
+    return new_board
+
+    
+def get_move():
+    '''
+    asks the user what column they would like to make theyre move
+    '''
+
+    valid_columns = ['1','2','3','4','5','6','7']
+
+    while True:
+
+        player_move = input('Enter DROP or POP followed by the column number to make a move: ') #takes users move
+
+        player_move = player_move.split() #splits players move to become a list of strings
+        if len(player_move) == 2 and (player_move[0].upper() == 'DROP' or\
+            player_move[0].upper() == 'POP')\
+            and player_move[1] in valid_columns: #if length of players move equals 2 and if the user entered in drop or pop regardless of upper or lower case, and if number entered is in valid_columns
+            return player_move #return players move
+
+        else:
+            print('Invalid move') #otherwise print this message
+            print()
+
+
+def program(game):
+    '''
+    program that handles the connect four game
+    '''
+    while connectfour.winner(game) == 0: #while there is no winner
+        if game.turn == 1: #if it is red player's turn
+            print('Player RED make your move') #prints this message
+            print()
+        elif game.turn == 2: #if it is yellow players turn
+            print('Player YELLOW make your move') #prints this message
+            print()
+        print_board(game.board) #print a new game
+        current_move = get_move() #gets the players move and stores it in a variable
+        
+        while True:
+
+            try:
+
+                if current_move[0].upper() == 'DROP': #if players says they want to drop
+                    game = connectfour.drop(game, int(current_move[-1])-1) #drops the players move in appropriate column and changes the game state
+                elif current_move[0].upper() == 'POP': #if player says they want to pop
+                    game = connectfour.pop(game, int(current_move[-1])-1) #pops players move as long as players piece is in specified column
+
+            except:
+                print('Invalid Move') #if playes move is invalid prints this message
+                print()
+                current_move = get_move() #recursively ask for players move until input is acceptable
+            else:
+                break #leave the function
+        print('\n\n')
+    print_board(game.board) #prints new game state
+    print('Game Over') #when game is over prints this message
+    if game.turn == 1: #if it is red playes turn
+        print('Player YELLOW is the Winner') #print this message
+    elif game.turn == 2: #if is is yellow players turn
+        print('Player RED is the Winner') #print this message
+        
+   
+
+def print_board(gameboard):
+    '''
+    prints the gameboard in a special format and checks whether each item is a R, Y or '.' and does a specific action
+    '''
+    
+    board_copy = new_board(gameboard) #calls new_board function on given parameter and stores it in a variable called size
+    size = len(board_copy[0]) #takes length of size
+    for num in range(size): #for number in range in size
+        print(num+1, end=' ') #prints each number + 1. increments 1 to account for indexing
+    print('\n') # print new line after all numbers in range of size is done being printing
+    for sub_list in board_copy: #for each sublist in the big list called board_copy
+        for item in sub_list: #for item in sublist
+            if item == 0: #if item is 0
+                print('.', end= ' ') #print '.' 
+            elif item == 1: #else if item is 1
+                print('R', end = ' ') #print 'R'
+            elif item == 2: #else if item is 2
+                print('Y', end = ' ') #print 'Y'
+                
+        print('\n') #print a new line after every sublist
+            
+if __name__ == '__main__':
+    program(game)
