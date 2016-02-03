@@ -1,4 +1,4 @@
-#Mahamadou Sylla 61549479 and Jonathan Abebe 38104225
+#Mahamadou Sylla
 
 import connectfour
 import sharedfunctions
