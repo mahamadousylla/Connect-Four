@@ -1,6 +1,6 @@
 Two connect four games. One is console based. 
 The other connects to a server and plays a connect 
-four game with it while following a certain protocol.
+four game against it while following a certain protocol.
 
 The connectfour.py module was provided 
 by Alex Thorton - Professor at University of California, Irvine
