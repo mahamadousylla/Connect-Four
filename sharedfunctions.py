@@ -5,7 +5,7 @@ import connectfour
 
 def new_board(Board):
     '''
-    changes the format of the board from 6x7 to 7x6
+    rotates a game board
     '''
     result = [[Board[j][i] for j in range(len(Board))] for i in range(len(Board[0]))]
     new_board = []
